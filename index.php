@@ -66,13 +66,14 @@
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
-		ini_set('display_errors', 1);
+		error_reporting(-1); //report all PHP errors     Xiang Hou
+		ini_set('display_errors', 1); // turn on display errors function     Xiang Hou
 	break;
 
 	case 'testing':
 	case 'production':
 		ini_set('display_errors', 0);
+        //Check the current PHP version with input PHP version    Xiang Hou
 		if (version_compare(PHP_VERSION, '5.3', '>='))
 		{
 			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
@@ -84,7 +85,7 @@ switch (ENVIRONMENT)
 	break;
 
 	default:
-		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503); // Open 503 page     Xiang Hou
 		echo 'The application environment is not set correctly.';
 		exit(1); // EXIT_ERROR
 }
@@ -202,7 +203,7 @@ switch (ENVIRONMENT)
 	else
 	{
 		// Ensure there's a trailing slash
-		$system_path = rtrim($system_path, '/').'/';
+		$system_path = rtrim($system_path, '/').'/'; // remove '/' from $system_path
 	}
 
 	// Is the system path correct?

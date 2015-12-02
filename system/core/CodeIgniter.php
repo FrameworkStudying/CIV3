@@ -67,6 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		require_once(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	}
 
+    // Default constants setting is in config/constants.php   Xiang Hou
 	require_once(APPPATH.'config/constants.php');
 
 /*
@@ -74,6 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *  Load the global functions
  * ------------------------------------------------------
  */
+    // Load some self's function of CI    Xiang Hou
 	require_once(BASEPATH.'core/Common.php');
 
 
@@ -114,7 +116,8 @@ if ( ! is_php('5.4'))
 			{
 				continue;
 			}
-
+            // Loop the value of value(likes $_POST, $_SESSION, etc) if the key also exist in $GLOBAL, it will set
+			// the value of key to NULL     Xiang Hou
 			foreach (array_keys($$superglobal) as $var)
 			{
 				if (isset($GLOBALS[$var]) && ! in_array($var, $_protected, TRUE))
@@ -126,14 +129,18 @@ if ( ! is_php('5.4'))
 	}
 }
 
+// 2015.11.26
 
 /*
  * ------------------------------------------------------
  *  Define a custom error handler so we can log PHP errors
  * ------------------------------------------------------
  */
+    // Set function : _error_handler as error process function  Xiang Hou
 	set_error_handler('_error_handler');
+    // Set function : _exception_handler as exception process function   Xiang Hou
 	set_exception_handler('_exception_handler');
+    // Set function : _shutdown_handler as running in last part for whole process   Xiang Hou
 	register_shutdown_function('_shutdown_handler');
 
 /*
@@ -185,6 +192,7 @@ if ( ! is_php('5.4'))
  *  Start the timer... tick tock tick tock...
  * ------------------------------------------------------
  */
+    // Loading system process time calculate function    Xiang Hou
 	$BM =& load_class('Benchmark', 'core');
 	$BM->mark('total_execution_time_start');
 	$BM->mark('loading_time:_base_classes_start');
@@ -194,6 +202,7 @@ if ( ! is_php('5.4'))
  *  Instantiate the hooks class
  * ------------------------------------------------------
  */
+    // Loading Hooks class(when enable_hooks is TRUE)   Xiang Hou
 	$EXT =& load_class('Hooks', 'core');
 
 /*
@@ -201,6 +210,7 @@ if ( ! is_php('5.4'))
  *  Is there a "pre_system" hook?
  * ------------------------------------------------------
  */
+    // run the pre_system part of Hook
 	$EXT->call_hook('pre_system');
 
 /*
@@ -365,7 +375,7 @@ if ( ! is_php('5.4'))
 	{
 		return CI_Controller::get_instance();
 	}
-
+    // Loading custom controller from application/core folder    Xiang Hou
 	if (file_exists(APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php'))
 	{
 		require_once APPPATH.'core/'.$CFG->config['subclass_prefix'].'Controller.php';
@@ -374,6 +384,7 @@ if ( ! is_php('5.4'))
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
 
+// 2015.12.02
 /*
  * ------------------------------------------------------
  *  Sanity checks

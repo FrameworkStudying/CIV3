@@ -123,7 +123,7 @@ if ( ! function_exists('is_really_writable'))
 }
 
 // ------------------------------------------------------------------------
-
+// The function is loading class from system or application folder(loading class method, important) Xiang Hou
 if ( ! function_exists('load_class'))
 {
 	/**
@@ -223,7 +223,7 @@ if ( ! function_exists('is_loaded'))
 }
 
 // ------------------------------------------------------------------------
-
+// Loading configure setting from application folder(important)   Xiang Hou
 if ( ! function_exists('get_config'))
 {
 	/**
