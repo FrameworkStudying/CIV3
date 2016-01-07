@@ -251,6 +251,8 @@ if ( ! is_php('5.4'))
 	$charset = strtoupper(config_item('charset'));
 	ini_set('default_charset', $charset);
 
+    // Check the php extension is loaded
+    // mbstring is a extension for process multi-byte character   Xiang Hou
 	if (extension_loaded('mbstring'))
 	{
 		define('MB_ENABLED', TRUE);
@@ -290,12 +292,21 @@ if ( ! is_php('5.4'))
  *  Load compatibility features
  * ------------------------------------------------------
  */
-
+    // If mbstring is enabled then will load the mbstring extension
 	require_once(BASEPATH.'core/compat/mbstring.php');
-	require_once(BASEPATH.'core/compat/hash.php');
-	require_once(BASEPATH.'core/compat/password.php');
-	require_once(BASEPATH.'core/compat/standard.php');
 
+    // add extended hash process when PHP ver is less than 5.5
+    // It is a good hash document  Xiang Hou
+	require_once(BASEPATH.'core/compat/hash.php');
+
+    // Check crypt extension is installed, if installed then will load crypt extension
+    // It is a good security way for password   Xiang Hou
+	require_once(BASEPATH.'core/compat/password.php');
+
+    // When php ver is more than 5.5 will loaded the original method of PHP
+	require_once(BASEPATH.'core/compat/standard.php');
+// 2016.1.7
+// ---------------ONETIME---------------------
 /*
  * ------------------------------------------------------
  *  Instantiate the UTF-8 class
@@ -384,7 +395,6 @@ if ( ! is_php('5.4'))
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
 
-// 2015.12.02
 /*
  * ------------------------------------------------------
  *  Sanity checks
