@@ -407,6 +407,7 @@ if ( ! function_exists('show_error'))
 	function show_error($message, $status_code = 500, $heading = 'An Error Was Encountered')
 	{
 		$status_code = abs($status_code);
+		// 2016.2.25  Xiang Hou
 		if ($status_code < 100)
 		{
 			$exit_status = $status_code + 9; // 9 is EXIT__AUTO_MIN
@@ -467,6 +468,7 @@ if ( ! function_exists('log_message'))
 	 */
 	function log_message($level, $message)
 	{
+		// Store log information as Log class  Xiang Hou
 		static $_log;
 
 		if ($_log === NULL)

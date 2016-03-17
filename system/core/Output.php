@@ -94,6 +94,7 @@ class CI_Output {
 
 	/**
 	 * php.ini zlib.output_compression flag
+	 * if let zip output function enable, should set it as true  Xiang Hou
 	 *
 	 * @var	bool
 	 */
@@ -139,8 +140,10 @@ class CI_Output {
 		);
 
 		// Get mime types for later
+		// Set $mimes address in cache same as return value of get_mimes()  Xiang Hou  2016.2.23
 		$this->mimes =& get_mimes();
 
+		// The log infomation in a Log class and log_message is a function of Common.php  Xiang Hou
 		log_message('info', 'Output Class Initialized');
 	}
 
@@ -495,6 +498,7 @@ class CI_Output {
 			log_message('debug', 'Total execution time: '.$elapsed);
 			return;
 		}
+		// 2016.03.17   Xiang Hou
 
 		// --------------------------------------------------------------------
 
@@ -542,6 +546,7 @@ class CI_Output {
 	 */
 	public function _write_cache($output)
 	{
+		// Put output string content to cache file   Xiang Hou
 		$CI =& get_instance();
 		$path = $CI->config->item('cache_path');
 		$cache_path = ($path === '') ? APPPATH.'cache/' : $path;
@@ -583,6 +588,7 @@ class CI_Output {
 			// we're serving it
 			if ($this->_compress_output === TRUE)
 			{
+				// Zip output string with Gzip method   Xiang Hou
 				$output = gzencode($output);
 
 				if ($this->get_header('content-type') === NULL)
@@ -664,7 +670,7 @@ class CI_Output {
 				$uri .= '?'.$_SERVER['QUERY_STRING'];
 			}
 		}
-
+		// The cache file name of URI   Xiang Hou
 		$filepath = $cache_path.md5($uri);
 
 		if ( ! file_exists($filepath) OR ! $fp = @fopen($filepath, 'rb'))
@@ -711,6 +717,7 @@ class CI_Output {
 		}
 
 		// Display the cache
+		// $cache is the cache file path
 		$this->_display(substr($cache, strlen($match[0])));
 		log_message('debug', 'Cache file is current. Sending it to browser.');
 		return TRUE;

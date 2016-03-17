@@ -306,19 +306,23 @@ if ( ! is_php('5.4'))
     // When php ver is more than 5.5 will loaded the original method of PHP
 	require_once(BASEPATH.'core/compat/standard.php');
 // 2016.1.7
-// ---------------ONETIME---------------------
 /*
  * ------------------------------------------------------
  *  Instantiate the UTF-8 class
  * ------------------------------------------------------
  */
+	// The lib is support for converting charset to UTF-8  Xiang Hou
 	$UNI =& load_class('Utf8', 'core');
 
+//2016.1.8
+// ---------------ONETIME---------------------
 /*
  * ------------------------------------------------------
  *  Instantiate the URI class
  * ------------------------------------------------------
  */
+	// Support for URI parses
+    // A document for URI processing Xiang Hou(need study deep)
 	$URI =& load_class('URI', 'core');
 
 /*
@@ -326,20 +330,25 @@ if ( ! is_php('5.4'))
  *  Instantiate the routing class and set the routing
  * ------------------------------------------------------
  */
+	// $routing is set in application/config/routes.php   Xiang Hou
+	// Xiang Hou(need study deep)
 	$RTR =& load_class('Router', 'core', isset($routing) ? $routing : NULL);
+    // This one is a object of CI_Router class Xiang Hou
 
 /*
  * ------------------------------------------------------
  *  Instantiate the output class
  * ------------------------------------------------------
  */
+    // Set the parameter for out put. Xiang Hou
 	$OUT =& load_class('Output', 'core');
-
+//2016.2.4
 /*
  * ------------------------------------------------------
  *	Is there a valid cache file? If so, we're done...
  * ------------------------------------------------------
  */
+    // Need to take more take to study in Output class   Xiang Hou 2016.2.19
 	if ($EXT->call_hook('cache_override') === FALSE && $OUT->_display_cache($CFG, $URI) === TRUE)
 	{
 		exit;
@@ -532,6 +541,7 @@ if ( ! is_php('5.4'))
  *  Call the requested method
  * ------------------------------------------------------
  */
+    // call the method of controller (Important) Xiang Hou
 	call_user_func_array(array(&$CI, $method), $params);
 
 	// Mark a benchmark end point

@@ -213,6 +213,7 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
+// The setting is return type of exception for error
 $config['log_threshold'] = 0;
 
 /*
@@ -238,6 +239,8 @@ $config['log_path'] = '';
 | Note: Leaving it blank will default to 'php'.
 |
 */
+
+// The extension name of log file
 $config['log_file_extension'] = '';
 
 /*

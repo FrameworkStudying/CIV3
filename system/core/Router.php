@@ -59,7 +59,7 @@ class CI_Router {
 
 	/**
 	 * List of routes
-	 *
+	 * Set by $route in config/routes.php Xiang Hou
 	 * @var	array
 	 */
 	public $routes =	array();
@@ -128,8 +128,9 @@ class CI_Router {
 		$this->enable_query_strings = ( ! is_cli() && $this->config->item('enable_query_strings') === TRUE);
 
 		// If a directory override is configured, it has to be set before any dynamic routing logic
+		// The process is if previous one is true then will run second one and ......(New coding method  Cool!)  Xiang Hou
 		is_array($routing) && isset($routing['directory']) && $this->set_directory($routing['directory']);
-		$this->_set_routing();
+		$this->_set_routing(); // Set controller and method from uri (The important part) Xiang Hou
 
 		// Set any routing overrides that may exist in the main index file
 		if (is_array($routing))
@@ -169,6 +170,7 @@ class CI_Router {
 		// Validate & get reserved routes
 		if (isset($route) && is_array($route))
 		{
+			// Put $route array from config/routes.php to route attribute.  Xiang Hou
 			isset($route['default_controller']) && $this->default_controller = $route['default_controller'];
 			isset($route['translate_uri_dashes']) && $this->translate_uri_dashes = $route['translate_uri_dashes'];
 			unset($route['default_controller'], $route['translate_uri_dashes']);

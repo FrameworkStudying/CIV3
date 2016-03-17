@@ -113,12 +113,14 @@ class CI_Log {
 	 */
 	public function __construct()
 	{
+		// Get config of Log  Xiang Hou
 		$config =& get_config();
 
 		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH.'logs/';
 		$this->_file_ext = (isset($config['log_file_extension']) && $config['log_file_extension'] !== '')
 			? ltrim($config['log_file_extension'], '.') : 'php';
-
+		// Create log file  Xiang Hou
+		// If log file not exist then create log file  Xiang Hou
 		file_exists($this->_log_path) OR mkdir($this->_log_path, 0755, TRUE);
 
 		if ( ! is_dir($this->_log_path) OR ! is_really_writable($this->_log_path))
@@ -206,6 +208,7 @@ class CI_Log {
 
 		$message .= $level.' - '.$date.' --> '.$msg."\n";
 
+		// Lock log file and not allow other process write log file  Xiang Hou
 		flock($fp, LOCK_EX);
 
 		for ($written = 0, $length = strlen($message); $written < $length; $written += $result)
@@ -215,7 +218,7 @@ class CI_Log {
 				break;
 			}
 		}
-
+		// Unlock log file and allow other process write log file  Xiang Hou
 		flock($fp, LOCK_UN);
 		fclose($fp);
 
