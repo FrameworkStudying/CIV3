@@ -354,16 +354,19 @@ if ( ! is_php('5.4'))
 		exit;
 	}
 
+
 /*
  * -----------------------------------------------------
  * Load the security class for xss and csrf support
  * -----------------------------------------------------
  */
 	$SEC =& load_class('Security', 'core');
+// 2016.3.22
 
 /*
  * ------------------------------------------------------
  *  Load the Input class and sanitize globals
+ * per-process global input data with security  Xiang Hou
  * ------------------------------------------------------
  */
 	$IN	=& load_class('Input', 'core');
@@ -373,8 +376,9 @@ if ( ! is_php('5.4'))
  *  Load the Language class
  * ------------------------------------------------------
  */
+    // Only constructed the language class   Xiang Hou
 	$LANG =& load_class('Lang', 'core');
-
+// 2016.5.10
 /*
  * ------------------------------------------------------
  *  Load the app controller and local controller

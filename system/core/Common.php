@@ -710,6 +710,7 @@ if ( ! function_exists('remove_invisible_characters'))
 	 * @param	bool
 	 * @return	string
 	 */
+	// Study continue 2016.4.5  Xiang Hou
 	function remove_invisible_characters($str, $url_encoded = TRUE)
 	{
 		$non_displayables = array();

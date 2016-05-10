@@ -88,6 +88,7 @@ class CI_Security {
 	 *
 	 * @var	string
 	 */
+	// Start Xiang Hou
 	protected $_xss_hash;
 
 	/**
@@ -176,6 +177,7 @@ class CI_Security {
 			{
 				if (NULL !== ($val = config_item($key)))
 				{
+					// value of '_'.$key as attribute for this   Xiang Hou
 					$this->{'_'.$key} = $val;
 				}
 			}
@@ -571,7 +573,7 @@ class CI_Security {
 		{
 			$rand = $this->get_random_bytes(16);
 			$this->_xss_hash = ($rand === FALSE)
-				? md5(uniqid(mt_rand(), TRUE))
+				? md5(uniqid(mt_rand(), TRUE)) // MD5 with the current time and get unique id  Xiang Hou
 				: bin2hex($rand);
 		}
 
@@ -594,6 +596,7 @@ class CI_Security {
 		}
 
 		// Unfortunately, none of the following PRNGs is guaranteed to exist ...
+		// mcrypt $length  Xiang Hou
 		if (defined('MCRYPT_DEV_URANDOM') && ($output = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM)) !== FALSE)
 		{
 			return $output;

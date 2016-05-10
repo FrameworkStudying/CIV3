@@ -147,7 +147,7 @@ class CI_Input {
 		// Do we need the UTF-8 class?
 		if (UTF8_ENABLED === TRUE)
 		{
-			$this->uni =& load_class('Utf8', 'core');
+			$this->uni =& load_class('Utf8', 'core'); // The environment setting to UTF8  Xiang Hou
 		}
 
 		// Sanitize global arrays
